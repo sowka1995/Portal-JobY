@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+        <ul class="nav navbar-nav navbar-right">
+            @if (User.IsInRole("User"))
+            {
+                <li>
+                    @Html.ActionLink("Obserwowane zlecenia", "ObservedOrders", "Account")
+                </li>
+                <li>
+                    @Html.ActionLink("Moje ogłoszenia", "Advertisements", "Account")
+                </li>
+                <li>
+                    @Html.ActionLink("Moje zlecenia", "Orders", "Account")
+                </li>
+                <li>
+                    @Html.ActionLink("Dodaj ogłoszenie", "Create", "Advertisement")
+                </li>
+            }
+            <li>
+                @Html.ActionLink("Zalogowany jako " + User.Identity.GetUserName() + "!", "Details", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a></li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Zarejestruj", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Zaloguj", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

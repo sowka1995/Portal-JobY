@@ -1,0 +1,37 @@
+﻿@model List<PortalAO.Models.AdvertisementModel>
+@{
+    ViewBag.Title = "Moje zlecenia";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Moje zlecenia:</h2>
+<hr />
+
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+
+<script language="javascript">
+    $(document).ready(function () {
+        $('.details').hide();
+
+        $('.mainInfo').on('click', function (e) {
+            $(this).next().slideToggle();
+        });
+    });
+</script>
+
+
+<table class="container-fluid um-table">
+    @if (Model.Count != 0)
+    {
+        foreach (var item in Model)
+        {
+            @Html.Partial("~/Views/Shared/SingleAdvertisementWithEdit.cshtml", item);       
+        }
+    }
+    else
+    {
+        <h3>Historia Twoich zleceń jest pusta</h3>
+    }
+</table>
+
+

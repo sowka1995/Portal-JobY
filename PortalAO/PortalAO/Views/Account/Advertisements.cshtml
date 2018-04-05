@@ -1,0 +1,40 @@
+﻿@model List<PortalAO.Models.AdvertisementModel>
+@{
+    ViewBag.Title = "Moje ogłoszenia";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Moje ogłoszenia:</h2>
+<hr />
+
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+
+<script language="javascript">
+    $(document).ready(function () {
+        $('.details').hide();
+
+        $('.mainInfo').on('click', function (e) {
+            $(this).next().slideToggle();
+        });
+    });
+</script>
+
+
+<div class="container">
+    @if (Model.Count != 0)
+    {
+        foreach (var item in Model)
+        {
+            if (!item.IsMandatorySelected)
+            {
+                @Html.Partial("~/Views/Shared/SingleAdvertisementWithEdit.cshtml", item);
+            }
+        }
+    }
+    else
+    {
+        <h3>Historia Twoich ogłoszeń jest pusta</h3>
+    }
+</div>
+
+

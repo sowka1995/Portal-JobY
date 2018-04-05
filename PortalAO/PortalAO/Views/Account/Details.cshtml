@@ -1,0 +1,60 @@
+﻿@model PortalAO.Models.ApplicationUser
+@{
+    ViewBag.Title = "Twoje konto";
+}
+
+<h2>Szczegóły konta</h2>
+
+<hr />
+
+<div class="container-fluid text-large">
+
+    <div class="Details-box-1" style="font-size: 18px">
+        @Html.DisplayNameFor(model => model.Name)
+        <span style="color: orange;">
+            @Html.DisplayFor(model => model.Name)
+        </span> <br />
+
+        @Html.DisplayNameFor(model => model.Surname)
+        <span style="color: orange;">
+            @Html.DisplayFor(model => model.Surname)
+        </span> <br />
+
+        @Html.DisplayNameFor(model => model.Address)
+        <span style="color: orange;">
+            @Html.DisplayFor(model => model.Address)
+        </span> <br />
+
+        @Html.DisplayNameFor(model => model.PESEL)
+        <span style="color: orange;">
+            @Html.DisplayFor(model => model.PESEL)
+        </span> <br />
+
+        @Html.DisplayNameFor(model => model.PhoneNumber)
+        <span style="color: orange;">
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </span> <br />
+
+        @Html.DisplayNameFor(model => model.Email)
+        <span style="color: orange;">
+            @Html.DisplayFor(model => model.Email)
+        </span> <br />
+
+        <br /> <br />
+    </div>
+</div>
+
+<br />
+
+<p>
+    @Html.ActionLink("Moje ogłoszenia", "Advertisements")
+</p>
+<p>
+    @Html.ActionLink("Moje zlecenia", "Orders")
+</p>
+<p>
+    @Html.ActionLink("Edycja danych", "Edit", new { id = Model.Id })
+</p>
+<p>
+    @Html.ActionLink("Zmień hasło", "ChangePassword", new { id = Model.Id })
+</p>

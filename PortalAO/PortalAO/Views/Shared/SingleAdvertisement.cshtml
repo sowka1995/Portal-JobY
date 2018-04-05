@@ -1,0 +1,45 @@
+﻿@model PortalAO.Models.AdvertisementModel
+@using PortalAO.Models
+@using Microsoft.AspNet.Identity
+@{
+    var dbContext = ApplicationDbContext.Create();
+    var userManager = new UserManager<ApplicationUser, int>(new CustomUserStore(dbContext));
+    var user = userManager.FindById(Model.PrincipalID);
+}
+
+<div class="row">
+    <span class="title" style="font-size: 28px; color: chocolate; margin: 0px;">@Model.Title  &nbsp;</span>
+    @if (User.Identity.IsAuthenticated)
+    {
+        if (!Model.InterestedContractorIDs.Contains(User.Identity.GetUserId<int>()))
+        {
+            using (Ajax.BeginForm("Join", "Advertisement", FormMethod.Post, new AjaxOptions { UpdateTargetId = "info", InsertionMode = InsertionMode.Replace }, new { @class = "myForm" }))
+            { @Html.HiddenFor(model => model.ID) <input type="submit" value="Dołącz do zainteresowanych" class="fakeLinks" /> }
+        }
+        else
+        {
+            using (Ajax.BeginForm("Resign", "Advertisement", FormMethod.Post, new AjaxOptions { UpdateTargetId = "info", InsertionMode = InsertionMode.Replace }, new { @class = "myForm" }))
+            { @Html.HiddenFor(model => model.ID) <input type="submit" value="Anuluj zainteresowanie" class="fakeLinks" /> }
+        }
+    }
+    <br />
+    @Model.Details <br />
+    Lokalizacja: @Model.Location <br />
+    Data realizacji: @Model.ExecutionDate.ToString("d") <br /> <br />
+    <span style="font-size: 18px; color: darkgreen">
+        Wynagrodzenie: @Model.Payment zł
+    </span>
+    <div class="details" style="display: none">
+        <br />
+        <span style="font-size: 14px; font-weight: bold">Informacje o zleceniobiorcy: </span> <br />
+        <span style="font-style: italic">Imię i nazwisko: </span> @user.Name @user.Surname <br />
+        <span style="font-style: italic">Telefon kontaktowy: </span> @user.PhoneNumber <br />
+        <span style="font-style: italic">Email: </span> @user.Email
+        <br /> <br />
+        Liczba zainteresowanych: @Model.InterestedContractorIDs.Count
+    </div>
+    <hr />
+</div>
+
+
+
